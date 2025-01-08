@@ -15,7 +15,11 @@ def build_player_url(name):
         print("Input Error: Name of player could not be processed")
         exit()
     
-    base_url += f"/{index_letter}/{name[first_letter_last_name_pos:len(name)].lower()}{name[0:2].lower()}01.html"
+    if( len(name[first_letter_last_name_pos:len(name)]) <= 5 ):
+        base_url += f"/{index_letter}/{name[first_letter_last_name_pos:len(name)].lower()}{name[0:2].lower()}01.html"
+    else:
+        base_url += f"/{index_letter}/{name[first_letter_last_name_pos:first_letter_last_name_pos+5].lower()}{name[0:2].lower()}01.html"
+    print(base_url)
     return base_url
 
 def fetch_player_data_html(url):
@@ -46,13 +50,11 @@ def fetch_player_game_log(name, year):
         exit()
     
     game_log_headers = game_log_table.find("thead").find_all("th")
-    #FOR PERSONAL OUTPUT --> stores each table header and its subsequent data
-    for i in range(len(game_log_headers)):
-        print(game_log_headers[i])
-    return
+    return game_log_headers
 
 def main():
-    fetch_player_game_log("Jayson Tatum", 2025)
+    #fetch_player_game_log("Jayson Tatum", 2025)
+    build_player_url("De'Aron Fox")
 
 
 main()
