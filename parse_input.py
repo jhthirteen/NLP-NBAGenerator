@@ -27,7 +27,6 @@ def extract_statistic(user_input):
         r"two"
     ]
 
-
     stat_group = ""
     for stat in potential_stats:
         match = re.search(stat, user_input, re.IGNORECASE)
@@ -39,5 +38,4 @@ def extract_statistic(user_input):
         print(f"Input Error: Name of statistic could not be processed")
         exit()
 
-
-extract_statistic("Create a graph for me of Shai Gilgeous-Alexander's three point during this NBA season")
+    return stat_group
