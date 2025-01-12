@@ -55,7 +55,8 @@ def fetch_player_game_log(name, year):
     game_log_rows = game_log_table.find("tbody").find_all("tr")
     return game_log_rows
 
-def fetch_three_point_percentage_last_games(game_log, num_games):
+def fetch_three_point_percentage_last_games(name, num_games, year):
+    game_log = fetch_player_game_log(name, year)
     if( num_games > len(game_log) - 1):
         print("Input Error: Number of games searched for exceeds the number of games played by player")
         exit()
@@ -69,7 +70,8 @@ def fetch_three_point_percentage_last_games(game_log, num_games):
 
     return three_point_data
 
-def fetch_three_point_percentage_first_games(game_log, num_games):
+def fetch_three_point_percentage_first_games(name, num_games, year):
+    game_log = fetch_player_game_log(name, year)
     if( num_games > len(game_log) - 1):
         print("Input Error: Number of games searched for exceeds the number of games played by player")
         exit()
@@ -79,11 +81,16 @@ def fetch_three_point_percentage_first_games(game_log, num_games):
         three_point_percentage = game_log[i].find("td", {"data-stat" : "fg3_pct"}) #find the <td> element containing the three point percentage for the game specified by the current row 
         three_point_data[i] = three_point_percentage.text #populate the data array with the percentage 
 
-    return three_point_data        
+    return three_point_data       
+
+"""
+TODO: Add a function that allows a user to search for three point percentages within a specified range of dates
+TODO: Add error handling when looking for data when a player DID NOT PLAY OR WAS INACTIVE
+"""
 
 def main():
     log_rows = fetch_player_game_log("Shai Gilgeous-Alexander", 2025)
-    fetch_three_point_percentage_last_games(log_rows, 5)
+    #fetch_three_point_percentage_last_games(log_rows, 5)
 
 
 

@@ -9,9 +9,12 @@ function_pointers = {
 def main():
     user_input = input("What statistical trends would you like to analyze? ")
     json_info = extract_info(user_input)
-    
+    function_pointer_index = find_function_pointers(json_info)
+    time = format_time(json_info)
 
-
+    func = function_pointers[function_pointer_index]
+    data = func(json_info['players'], int(time), 2025)
+    print(data)
 
 
 main()
