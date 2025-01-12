@@ -69,6 +69,18 @@ def fetch_three_point_percentage_last_games(game_log, num_games):
 
     return three_point_data
 
+def fetch_three_point_percentage_first_games(game_log, num_games):
+    if( num_games > len(game_log) - 1):
+        print("Input Error: Number of games searched for exceeds the number of games played by player")
+        exit()
+    
+    three_point_data = [None] * num_games #allocate the space needed to store the data the number of percentages we are holding
+    for i in range(num_games):
+        three_point_percentage = game_log[i].find("td", {"data-stat" : "fg3_pct"}) #find the <td> element containing the three point percentage for the game specified by the current row 
+        three_point_data[i] = three_point_percentage.text #populate the data array with the percentage 
+
+    return three_point_data        
+
 def main():
     log_rows = fetch_player_game_log("Shai Gilgeous-Alexander", 2025)
     fetch_three_point_percentage_last_games(log_rows, 5)
