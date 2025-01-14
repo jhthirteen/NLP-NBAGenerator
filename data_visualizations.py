@@ -20,6 +20,10 @@ def line_graph_three_point_percentages_last_games(percentages):
     plt.plot(percentages, linewidth=2.5, color='red', marker='o', markersize=10, markeredgecolor='black', markeredgewidth=1, label='3-Point Percentage')
     plt.title(f'3-Point Shooting Percentage over the last {len(percentages)} games')
     plt.xlabel('Games')
+    x_ticks = [0] * len(percentages)
+    for i in range(len(percentages)):
+        x_ticks[i] = i
+    plt.xticks(x_ticks)
     plt.ylabel('Percentage')
     plt.legend()
     plt.show()
