@@ -61,11 +61,14 @@ def fetch_three_point_percentage_last_games(name, num_games, year):
         print("Input Error: Number of games searched for exceeds the number of games played by player")
         exit()
     
+    games_found = 0
     three_point_data = [None] * num_games #allocate the space needed to store the data the number of percentages we are holding
     index = len(game_log) - 1 #allows us to index into the back of the game log (where the most recent games are stored)
-    for i in range(num_games):
+    while( games_found < num_games ):
         three_point_percentage = game_log[index].find("td", {"data-stat" : "fg3_pct"}) #find the <td> element containing the three point percentage for the game specified by the current row 
-        three_point_data[i] = three_point_percentage.text #populate the data array with the percentage 
+        if( three_point_percentage ):
+            three_point_data[games_found] = three_point_percentage.text #populate the data array with the percentage 
+            games_found += 1
         index -= 1
 
     return three_point_data
@@ -75,11 +78,14 @@ def fetch_three_point_percentage_first_games(name, num_games, year):
     if( num_games > len(game_log) - 1):
         print("Input Error: Number of games searched for exceeds the number of games played by player")
         exit()
-    
+
+    games_found = 0 
     three_point_data = [None] * num_games #allocate the space needed to store the data the number of percentages we are holding
-    for i in range(num_games):
-        three_point_percentage = game_log[i].find("td", {"data-stat" : "fg3_pct"}) #find the <td> element containing the three point percentage for the game specified by the current row 
-        three_point_data[i] = three_point_percentage.text #populate the data array with the percentage 
+    while( games_found < num_games ):
+        three_point_percentage = game_log[games_found].find("td", {"data-stat" : "fg3_pct"}) #find the <td> element containing the three point percentage for the game specified by the current row 
+        if( three_point_percentage ):
+            three_point_data[games_found] = three_point_percentage.text #populate the data array with the percentage 
+            games_found += 1
 
     return three_point_data       
 
