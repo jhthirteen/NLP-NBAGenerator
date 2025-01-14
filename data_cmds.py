@@ -85,7 +85,9 @@ def fetch_three_point_percentage_first_games(name, num_games, year):
 
 """
 TODO: Add a function that allows a user to search for three point percentages within a specified range of dates
-TODO: Add error handling when looking for data when a player DID NOT PLAY OR WAS INACTIVE
+TODO: Add error handling when looking for data when a player DID NOT PLAY OR WAS INACTIVE 
+Idea here --> prompt the user that the player had at least one inactive game during this stretch --> prompt them if we would like the
+past 5 games that THEY played, or the past 5 games the team played (including some inactive games in that case)
 """
 
 def main():
