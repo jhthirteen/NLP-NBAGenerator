@@ -35,3 +35,23 @@ def line_graph_three_point_percentages_first_games(percentages):
     plt.ylabel('Percentage')
     plt.legend()
     plt.show()
+
+def line_graph_fieldgoal_point_percentages_last_games(percentages):
+    plt.plot(percentages, linewidth=2.5, color='red', marker='o', markersize=10, markeredgecolor='black', markeredgewidth=1, label='Field Goal Percentage')
+    plt.title(f'Field Goal Percentage over the last {len(percentages)} games')
+    plt.xlabel('Games')
+    x_ticks = [0] * len(percentages)
+    for i in range(len(percentages)):
+        x_ticks[i] = i
+    plt.xticks(x_ticks)
+    plt.ylabel('Percentage')
+    plt.legend()
+    plt.show()
+
+def line_graph_fieldgoal_point_percentages_first_games(percentages):
+    plt.plot(percentages, linewidth=2.5, color='red', marker='o', markersize=10, markeredgecolor='black', markeredgewidth=1, label='Field Goal Percentage')
+    plt.title(f'Field Goal Shooting Percentage over the first {len(percentages)} games')
+    plt.xlabel('Games')
+    plt.ylabel('Percentage')
+    plt.legend()
+    plt.show()
