@@ -1,6 +1,7 @@
 from data_cmds import fetch_three_point_percentage_last_games, fetch_player_game_log
 
 player = "LaMelo Ball" #had an inactive stretch recently
+test_data = ['.333', '.250', '1.000', '.167', '.500']
 l = fetch_player_game_log(player, 2025)
 num_games = 5
 data = [None] * num_games

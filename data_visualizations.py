@@ -1,7 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-#test_data = ['.250', '1.000', '.167', '.500', '.667']
 """
 TODO: Idea --> add functionality to create labels for each data point when the user hovers / clicks on it
 """
@@ -17,41 +16,55 @@ def clean_percentage_strings_to_float(input_data):
     return output_data
 
 def line_graph_three_point_percentages_last_games(percentages):
+    percentages.reverse()
     plt.plot(percentages, linewidth=2.5, color='red', marker='o', markersize=10, markeredgecolor='black', markeredgewidth=1, label='3-Point Percentage')
     plt.title(f'3-Point Shooting Percentage over the last {len(percentages)} games')
-    plt.xlabel('Games')
+    plt.xlabel('Games Ago')
     x_ticks = [0] * len(percentages)
     for i in range(len(percentages)):
-        x_ticks[i] = i
-    plt.xticks(x_ticks)
+        x_ticks[i] = i + 1
+    x_ticks.reverse()
+    plt.xticks(ticks = range(len(percentages)), labels=x_ticks)
     plt.ylabel('Percentage')
     plt.legend()
     plt.show()
 
 def line_graph_three_point_percentages_first_games(percentages):
+    percentages.reverse()
     plt.plot(percentages, linewidth=2.5, color='red', marker='o', markersize=10, markeredgecolor='black', markeredgewidth=1, label='3-Point Percentage')
     plt.title(f'3-Point Shooting Percentage over the first {len(percentages)} games')
-    plt.xlabel('Games')
-    plt.ylabel('Percentage')
-    plt.legend()
-    plt.show()
-
-def line_graph_fieldgoal_point_percentages_last_games(percentages):
-    plt.plot(percentages, linewidth=2.5, color='red', marker='o', markersize=10, markeredgecolor='black', markeredgewidth=1, label='Field Goal Percentage')
-    plt.title(f'Field Goal Percentage over the last {len(percentages)} games')
-    plt.xlabel('Games')
+    plt.xlabel('Games from Start of Season')
     x_ticks = [0] * len(percentages)
     for i in range(len(percentages)):
-        x_ticks[i] = i
+        x_ticks[i] = i + 1
     plt.xticks(x_ticks)
     plt.ylabel('Percentage')
     plt.legend()
     plt.show()
 
+def line_graph_fieldgoal_point_percentages_last_games(percentages):
+    percentages.reverse()
+    plt.plot(percentages, linewidth=2.5, color='red', marker='o', markersize=10, markeredgecolor='black', markeredgewidth=1, label='Field Goal Percentage')
+    plt.title(f'Field Goal Percentage over the last {len(percentages)} games')
+    plt.xlabel('Games Ago')
+    x_ticks = [0] * len(percentages)
+    for i in range(len(percentages)):
+        x_ticks[i] = i + 1
+    x_ticks.reverse()
+    plt.xticks(ticks = range(len(percentages)), labels=x_ticks)
+    plt.ylabel('Percentage')
+    plt.legend()
+    plt.show()
+
 def line_graph_fieldgoal_point_percentages_first_games(percentages):
+    percentages.reverse()
     plt.plot(percentages, linewidth=2.5, color='red', marker='o', markersize=10, markeredgecolor='black', markeredgewidth=1, label='Field Goal Percentage')
     plt.title(f'Field Goal Shooting Percentage over the first {len(percentages)} games')
-    plt.xlabel('Games')
+    plt.xlabel('Games from Start of Season')
+    x_ticks = [0] * len(percentages)
+    for i in range(len(percentages)):
+        x_ticks[i] = i + 1
+    plt.xticks(x_ticks)
     plt.ylabel('Percentage')
     plt.legend()
     plt.show()
