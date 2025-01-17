@@ -44,7 +44,7 @@ def find_function_pointers(extracted_json_info):
         "You are an assistant specifically designed for an application that processes information related to the NBA. "
         "Based on the given statistic to search for and time frame, along with a series of function pointers, you are to determine the correct function to call. "
         "The possible functions to call are: "
-        "fetch_three_point_percentage_last_games, fetch_three_point_percentage_first_games, fetch_fieldgoal_point_percentage_last_games, fetch_fieldgoal_point_percentage_first_games "
+        "fetch_three_point_percentage_last_games, fetch_three_point_percentage_first_games, fetch_fieldgoal_point_percentage_last_games, fetch_fieldgoal_point_percentage_first_games, fetch_three_point_attempts_last_games, fetch_three_point_attempts_first_games "
         "When making a decision, please limit the output to only the name of the function."
     )
 
