@@ -155,12 +155,52 @@ def fetch_fieldgoal_point_percentage_first_games(name, num_games, year):
             fg_point_data[games_found] = fg_point_percentage.text #populate the data array with the percentage 
             games_found += 1
 
-    return fg_point_data      
+    return fg_point_data     
+
+
+# ATTEMPT AT SINGLE, ABSTRACTED VERSIONS OF THE LAST n GAMES AND FIRST n GAMES BELOW
+#NOTE: stat paramater should be passed in the format of the HTML element we are searching for --> for example, stat = "fg_pct"
+# we want to have the OpenAI API format this for us 
+
+def fetch_stat_first_games(name, num_games, year, stat):
+    game_log = fetch_player_game_log(name, year)
+    if( num_games > len(game_log) - 1):
+        print("Input Error: Number of games searched for exceeds the number of games played by player")
+        exit()
+
+    games_found = 0 
+    data = [None] * num_games #allocate the space needed to store the data the number of percentages we are holding
+    while( games_found < num_games ):
+        stats = game_log[games_found].find("td", {"data-stat" : f"{stat}"}) #find the <td> element containing the three point percentage for the game specified by the current row 
+        if( stats ):
+            data[games_found] = stats.text #populate the data array with the percentage 
+            games_found += 1
+
+    return data 
+
+def fetch_stat_last_games(name, num_games, year, stat):
+    game_log = fetch_player_game_log(name, year)
+    if( num_games > len(game_log) - 1):
+        print("Input Error: Number of games searched for exceeds the number of games played by player")
+        exit()
+    
+    games_found = 0
+    data = [None] * num_games #allocate the space needed to store the data the number of percentages we are holding
+    index = len(game_log) - 1 #allows us to index into the back of the game log (where the most recent games are stored)
+    while( games_found < num_games ):
+        stats = game_log[index].find("td", {"data-stat" : f"{stat}"}) #find the <td> element containing the three point percentage for the game specified by the current row 
+        if( stats ):
+            data[games_found] = stats.text #populate the data array with the percentage 
+            games_found += 1
+        index -= 1
+
+    return data
 
 """
 TODO: Add a function that allows a user to search for three point percentages within a specified range of dates
 Idea here --> prompt the user that the player had at least one inactive game during this stretch --> prompt them if we would like the
 past 5 games that THEY played, or the past 5 games the team played (including some inactive games in that case)
+TODO: These functions can all be generalized to a single function with the data-stat tag being matched up with via some mapping at the beginning of the function.
 """
 
 def main():
