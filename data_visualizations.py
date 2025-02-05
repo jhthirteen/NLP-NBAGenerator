@@ -25,83 +25,31 @@ def clean_attempt_strings_to_int(input_data):
     
     return output_data
 
-def line_graph_three_point_percentages_last_games(percentages):
-    percentages.reverse()
-    plt.plot(percentages, linewidth=2.5, color='red', marker='o', markersize=10, markeredgecolor='black', markeredgewidth=1, label='3-Point Percentage')
-    plt.title(f'3-Point Shooting Percentage over the last {len(percentages)} games')
+# Generalized Functions to visualize a statistic either from some subset of a player's last games OR a player's first games
+
+def line_graph_stat_last_games(cleaned_data, stat_string):
+    cleaned_data.reverse()
+    plt.plot(cleaned_data, linewidth=2.5, color='red', marker='o', markersize=10, markeredgecolor='black', markeredgewidth=1, label='3-Point Attempts')
+    plt.title(f'{stat_string} over the last {len(cleaned_data)} games')
     plt.xlabel('Games Ago')
-    x_ticks = [0] * len(percentages)
-    for i in range(len(percentages)):
+    x_ticks = [0] * len(cleaned_data)
+    for i in range(len(cleaned_data)):
         x_ticks[i] = i + 1
     x_ticks.reverse()
-    plt.xticks(ticks = range(len(percentages)), labels=x_ticks)
-    plt.ylabel('Percentage')
+    plt.xticks(ticks = range(len(cleaned_data)), labels=x_ticks)
+    plt.ylabel(f'{stat_string}')
     plt.legend()
     plt.show()
 
-def line_graph_three_point_percentages_first_games(percentages):
-    percentages.reverse()
-    plt.plot(percentages, linewidth=2.5, color='red', marker='o', markersize=10, markeredgecolor='black', markeredgewidth=1, label='3-Point Percentage')
-    plt.title(f'3-Point Shooting Percentage over the first {len(percentages)} games')
+def line_graph_stat_first_games(cleaned_data, stat_string):
+    cleaned_data.reverse()
+    plt.plot(cleaned_data, linewidth=2.5, color='red', marker='o', markersize=10, markeredgecolor='black', markeredgewidth=1, label='3-Point Attempts')
+    plt.title(f'{stat_string} over the first {len(cleaned_data)} games')
     plt.xlabel('Games from Start of Season')
-    x_ticks = [0] * len(percentages)
-    for i in range(len(percentages)):
+    x_ticks = [0] * len(cleaned_data)
+    for i in range(len(cleaned_data)):
         x_ticks[i] = i + 1
     plt.xticks(x_ticks)
-    plt.ylabel('Percentage')
-    plt.legend()
-    plt.show()
-
-def line_graph_fieldgoal_point_percentages_last_games(percentages):
-    percentages.reverse()
-    plt.plot(percentages, linewidth=2.5, color='red', marker='o', markersize=10, markeredgecolor='black', markeredgewidth=1, label='Field Goal Percentage')
-    plt.title(f'Field Goal Percentage over the last {len(percentages)} games')
-    plt.xlabel('Games Ago')
-    x_ticks = [0] * len(percentages)
-    for i in range(len(percentages)):
-        x_ticks[i] = i + 1
-    x_ticks.reverse()
-    plt.xticks(ticks = range(len(percentages)), labels=x_ticks)
-    plt.ylabel('Percentage')
-    plt.legend()
-    plt.show()
-
-def line_graph_fieldgoal_point_percentages_first_games(percentages):
-    percentages.reverse()
-    plt.plot(percentages, linewidth=2.5, color='red', marker='o', markersize=10, markeredgecolor='black', markeredgewidth=1, label='Field Goal Percentage')
-    plt.title(f'Field Goal Shooting Percentage over the first {len(percentages)} games')
-    plt.xlabel('Games from Start of Season')
-    x_ticks = [0] * len(percentages)
-    for i in range(len(percentages)):
-        x_ticks[i] = i + 1
-    plt.xticks(x_ticks)
-    plt.ylabel('Percentage')
-    plt.legend()
-    plt.show()
-
-def line_graph_three_point_attempts_last_games(attempts):
-    attempts.reverse()
-    plt.plot(attempts, linewidth=2.5, color='red', marker='o', markersize=10, markeredgecolor='black', markeredgewidth=1, label='3-Point Attempts')
-    plt.title(f'3-Point Shooting Attempts over the last {len(attempts)} games')
-    plt.xlabel('Games Ago')
-    x_ticks = [0] * len(attempts)
-    for i in range(len(attempts)):
-        x_ticks[i] = i + 1
-    x_ticks.reverse()
-    plt.xticks(ticks = range(len(attempts)), labels=x_ticks)
-    plt.ylabel('Attempts')
-    plt.legend()
-    plt.show()
-
-def line_graph_three_point_attempts_first_games(attempts):
-    attempts.reverse()
-    plt.plot(attempts, linewidth=2.5, color='red', marker='o', markersize=10, markeredgecolor='black', markeredgewidth=1, label='3-Point Attempts')
-    plt.title(f'3-Point Shooting Attempts over the first {len(attempts)} games')
-    plt.xlabel('Games from Start of Season')
-    x_ticks = [0] * len(attempts)
-    for i in range(len(attempts)):
-        x_ticks[i] = i + 1
-    plt.xticks(x_ticks)
-    plt.ylabel('Attempts')
+    plt.ylabel(f'{stat_string}')
     plt.legend()
     plt.show()

@@ -37,31 +37,6 @@ def extract_info(user_input):
 
     return parsed_response
 
-
-def find_function_pointers(extracted_json_info):
-
-    system_prompt = (
-        "You are an assistant specifically designed for an application that processes information related to the NBA. "
-        "Based on the given statistic to search for and time frame, along with a series of function pointers, you are to determine the correct function to call. "
-        "The possible functions to call are: "
-        "fetch_three_point_percentage_last_games, fetch_three_point_percentage_first_games, fetch_fieldgoal_point_percentage_last_games, fetch_fieldgoal_point_percentage_first_games, fetch_three_point_attempts_last_games, fetch_three_point_attempts_first_games "
-        "When making a decision, please limit the output to only the name of the function."
-    )
-
-    user_prompt = f"The stat is {extracted_json_info['stats']} and the time period is {extracted_json_info['time']}"
-
-    response = client.chat.completions.create(
-        messages=[
-            {"role" : "system", "content" : system_prompt},
-            {"role" : "user", "content" : user_prompt}
-        ],
-        model="gpt-4o",
-        temperature=0.0 #for more deterministic results
-    )
-
-    response_content = response.choices[0].message.content
-    return response_content
-
 def format_time(extracted_json_info):
 
     system_prompt = (
@@ -83,3 +58,41 @@ def format_time(extracted_json_info):
 
     response_content = response.choices[0].message.content
     return response_content
+
+
+def find_function_pointers(extracted_json_info):
+
+    system_prompt = (
+        "You are an assistant specifically designed for an application that processes information related to the NBA. "
+        "Based on the given statistic to search for and time frame, along with a series of function pointers, you are to determine the correct function to call. You need to match the statistic to a given statistic tag, and call the function with the correct time frame "
+        "The possible tags are: "
+        "Minutes Played = mp, Field Goals Made = fg, Field Goals Attempted = fga, Field Goal Percentage = fg_pct, Three Pointers = fg3, Three Point Field Goals Attempted = fg3a, Three Point Percentage = fg3_pct, Free Throws = ft, Free Throws Attempted = fta, Free Throw Percentage = ft_pct, Offensive Rebounds = orb, Defensive Rebounds = drb, Total Rebounds = trb, Assists = ast, Steals = stl, Blocks = blk, Turnovers = tov, Fouls = pf, Points = pts, Game Score = game_score, Box-Score Plus Minus = plus_minus"
+        "The possible functions to call are: "
+        "fetch_stat_first_games and fetch_stat_last_games"
+        "Further, output if this kind of statistic that we would be looking for would be best represented by a floating point number (if there are decimals) or integers"
+        "When making a decision, please respond with pure JSON only."
+        "without any extra text, markdown, or explanations. The JSON should be structured "
+        "with the statistic tag, and the function name, like this: "
+        '{"tag": "stat_tag", "function": "function_to_call", "data_type" : "float or int"}.'
+    )
+
+    user_prompt = f"The stat is {extracted_json_info['stats']} and the time period is {extracted_json_info['time']}"
+
+    response = client.chat.completions.create(
+        messages=[
+            {"role" : "system", "content" : system_prompt},
+            {"role" : "user", "content" : user_prompt}
+        ],
+        model="gpt-4o",
+        temperature=0.0 #for more deterministic results
+    )
+
+    response_content = response.choices[0].message.content
+
+    try:
+        parsed_response = json.loads(response_content)
+    except json.JSONDecodeError as e:
+        print(e)
+        exit()
+
+    return parsed_response
